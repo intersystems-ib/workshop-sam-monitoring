@@ -1,0 +1,14 @@
+version: "2.2"
+services:
+  iris:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: iris
+    ports:
+      - 9191:52773
+      - 9192:1972
+    volumes:
+      - ./test:/test
+
+

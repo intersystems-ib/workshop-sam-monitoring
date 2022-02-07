@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="Demo.Loan.Msg.Application">
+<ClassType>persistent</ClassType>
+<ProcedureBlock>1</ProcedureBlock>
+<Super>Ens.Request</Super>
+<TimeCreated>59277,25915.521</TimeCreated>
+
+<Property name="Amount">
+<Type>%Integer</Type>
+</Property>
+
+<Property name="Name">
+<Type>%String</Type>
+</Property>
+
+<Property name="TaxID">
+<Type>%String</Type>
+</Property>
+
+<Property name="Nationality">
+<Type>%String</Type>
+</Property>
+
+<Property name="BusinessOperationType">
+<Type>%String</Type>
+</Property>
+
+<Property name="Destination">
+<Type>%String</Type>
+<Parameter name="MAXLEN" value="1000"/>
+</Property>
+
+<Parameter name="RESPONSECLASSNAME">
+<Default>Demo.Loan.Msg.Approval</Default>
+</Parameter>
+
+<Parameter name="DOMAIN">
+<Default>EnsDemo</Default>
+</Parameter>
+
+<Method name="RecordNumber">
+<ReturnType>%String</ReturnType>
+<Implementation><![CDATA[
+	If ..%Id()="" Do ..%Save()
+	Quit ..%Id()
+]]></Implementation>
+</Method>
+
+<Method name="GetRecordNumberText">
+<FormalSpec>pFormatAsHTML:%Boolean=0</FormalSpec>
+<ReturnType>%String</ReturnType>
+<Implementation><![CDATA[
+	Set tCRLF=$s(pFormatAsHTML:"<br>",1:$c(13,10))
+	Set tText=$$FormatMessage^%occMessages(,"EnsDemo","FindRateReceived","Your loan application has been received, and is being processed.")
+	Set tTemp = $$FormatMessage^%occMessages(,"EnsDemo","FindRateRecordNumber","Your record number is %1.",..RecordNumber())
+	Set tText=tText_" "_tTemp_tCRLF
+	Set tText=tText_$$FormatMessage^%occMessages(,"EnsDemo","FindRateWillReceive","You'll receive a reply from FindRate within 2 business days.")_tCRLF
+	Set tText=tText_$$FormatMessage^%occMessages(,"EnsDemo","FindRateThankyou","Thank you for applying with FindRate.")_tCRLF
+	Quit tText
+]]></Implementation>
+</Method>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DefaultData>ApplicationDefaultData</DefaultData>
+<Data name="ApplicationDefaultData">
+<Subscript>"Application"</Subscript>
+<Value name="1">
+<Value>Amount</Value>
+</Value>
+<Value name="2">
+<Value>Name</Value>
+</Value>
+<Value name="3">
+<Value>Nationality</Value>
+</Value>
+<Value name="4">
+<Value>TaxID</Value>
+</Value>
+<Value name="5">
+<Value>BusinessOperation</Value>
+</Value>
+<Value name="6">
+<Value>Destination</Value>
+</Value>
+<Value name="7">
+<Value>BusinessOperationType</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+</Export>

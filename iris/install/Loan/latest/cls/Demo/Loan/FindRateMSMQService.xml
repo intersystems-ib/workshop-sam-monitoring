@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="Demo.Loan.FindRateMSMQService">
+<Description>
+A business service for FindRate using MSMQ adapters</Description>
+<ClassType/>
+<ProcedureBlock>1</ProcedureBlock>
+<Super>Ens.BusinessService</Super>
+<TimeCreated>59389,42703.614649</TimeCreated>
+
+<Parameter name="ADAPTER">
+<Description>
+Name of the adapter class</Description>
+<Default>EnsLib.MSMQ.InboundAdapter</Default>
+</Parameter>
+
+<Method name="OnProcessInput">
+<Description>
+Authors of BusinessService implements this method to receive incoming data</Description>
+<FormalSpec>pInput:%RegisteredObject,*pOutput:%RegisteredObject</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	#; assuming the first line is 'amount:name:TaxID:nationality'
+	If pInput.BodyLength<32768 {
+		#; Access the property directly
+		Set tSubject=pInput.Body
+	} Else {
+		#; We need to access the message via a stream, since it's too large for a single string
+		Set tDispatch=pInput.Become("%Activate.IDispatch")
+		Set tStream=tDispatch.GetPropertyAsStream("Body")
+		Set tSubject=tStream.ReadLine()
+	}
+	Set tApplication = ##class(Demo.Loan.Msg.Application).%New()
+	Set tApplication.Amount=$p(tSubject,":",1)
+	Set tApplication.Name=$p(tSubject,":",2)
+	Set tApplication.TaxID=$p(tSubject,":",3)
+	Set tApplication.Nationality=$p(tSubject,":",4)
+	Set tApplication.BusinessOperationType="msmq"
+	Set tApplication.Destination="FindRateResponse"
+	Set tSC=..SendRequestAsync("Demo.Loan.FindRateDecisionProcessCustom",tApplication)  Quit:$$$ISERR(tSC) tSC
+
+	$$$TRACE("record number is "_tApplication.RecordNumber())
+	Set tSendReply = ##class(Demo.Loan.Msg.SendReply).%New()
+	Set tSendReply.Text=tApplication.GetRecordNumberText()
+	Set tSendReply.Destination="FindRateResponse"
+	Set tSC=..SendRequestAsync("Demo.Loan.FindRateMSMQOperation",tSendReply)
+	Quit tSC
+]]></Implementation>
+</Method>
+</Class>
+</Export>

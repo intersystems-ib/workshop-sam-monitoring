@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="Demo.Loan.Msg.PrimeRateRequest">
+<ClassType>persistent</ClassType>
+<ProcedureBlock>1</ProcedureBlock>
+<Super>Ens.Request</Super>
+<TimeCreated>59296,84933.272</TimeCreated>
+
+<Parameter name="RESPONSECLASSNAME">
+<Default>Demo.Loan.Msg.PrimeRateResponse</Default>
+</Parameter>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+</Storage>
+</Class>
+</Export>

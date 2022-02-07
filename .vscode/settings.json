@@ -1,0 +1,29 @@
+{
+    "objectscript.export": {
+        "folder": "iris/src",
+        "addCategory": false,
+        "map": {},
+        "atelier": true,
+        "generated": false,
+        "filter": "",
+        "category": "*",
+        "noStorage": false,
+        "dontExportIfNoChanges": false,
+        "maxConcurrentConnections": 0
+    },
+    "objectscript.conn": {
+        "active": true,
+        "username": "superuser",
+        "password": "SYS",
+        "ns": "USER",
+        "port": 52773,
+        "host": "localhost",
+        "docker-compose": {
+            "service": "iris",
+        },
+        "links": {
+            "SOAP Wizard": "${serverUrl}/isc/studio/templates/%25ZEN.Template.AddInWizard.SOAPWizard.cls?Namespace=${namespace}${serverAuth}",
+            "WebTerminal": "${serverUrl}/terminal/"
+        }
+    },
+}

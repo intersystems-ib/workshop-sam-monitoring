@@ -1,0 +1,5 @@
+.vs
+obj
+bin
+*.bak
+sam-1.0.0.115-unix.tar

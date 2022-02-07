@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="Demo.Loan.BankUS">
+<ClassType>persistent</ClassType>
+<ProcedureBlock>1</ProcedureBlock>
+<Super>Ens.BusinessProcess</Super>
+<TimeCreated>59277,50665.473</TimeCreated>
+
+<Parameter name="INVOCATION">
+<Description>
+2 modes: Queue, InProc</Description>
+<Default>Queue</Default>
+</Parameter>
+
+<Property name="CreditRating">
+<Type>%Integer</Type>
+</Property>
+
+<Property name="PrimeRate">
+<Type>%Numeric</Type>
+</Property>
+
+<Method name="OnRequest">
+<FormalSpec>request:Demo.Loan.Msg.Application,*response:Demo.Loan.Msg.Approval</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	Set $ZT="Trap",tSC=$$$OK
+	Do {
+		$$$TRACE("received application for "_request.Name)
+		#;
+		If $zcrc(request.Name,2)#5=0 {
+			Set response = ##class(Demo.Loan.Msg.Approval).%New()
+			Set response.BankName = "BankUS"
+			Set response.IsApproved = 0
+			$$$TRACE("application is denied because of bank holiday")
+			Quit
+		}
+		#;
+		Set tRequest = ##class(Demo.Loan.Msg.PrimeRateRequest).%New()
+		Set tSC = ..SendRequestAsync("Demo.Loan.WebOperations",tRequest,1,"PrimeRate")
+		#;
+		Set tRequest = ##class(Demo.Loan.Msg.CreditRatingRequest).%New()
+		Set tRequest.TaxID = request.TaxID
+		Set tSC = ..SendRequestAsync("Demo.Loan.WebOperations",tRequest,1,"CreditRating")
+		#;
+		Set tSC = ..SetTimer("PT15S")
+		#;
+		Quit
+	} While (0)
+Exit
+	Quit tSC
+Trap
+	Set $ZT="",tSC=$$$EnsSystemError Goto Exit
+]]></Implementation>
+</Method>
+
+<Method name="OnResponse">
+<Description>
+Handle a 'Response'</Description>
+<FormalSpec><![CDATA[request:Ens.Request,&response:Ens.Response,callrequest:Ens.Request,callresponse:Ens.Response,pCompletionKey:%String]]></FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	Set $ZT="Trap",tSC=$$$OK
+	Do {
+		If pCompletionKey="PrimeRate" {
+			Set ..PrimeRate = callresponse.PrimeRate
+		} Elseif pCompletionKey="CreditRating" {
+			Set ..CreditRating = callresponse.CreditRating
+		}
+		Quit
+	} While (0)
+Exit
+	Quit tSC
+Trap
+	Set $ZT="",tSC=$$$EnsSystemError Goto Exit
+]]></Implementation>
+</Method>
+
+<Method name="OnComplete">
+<FormalSpec><![CDATA[request:Ens.Request,&response:Ens.Response]]></FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	Set $ZT="Trap",tSC=$$$OK
+	Do {
+		Set response = ##class(Demo.Loan.Msg.Approval).%New()
+		Set response.BankName = "BankUS"
+		Set tIsUsCitizen=($zcvt($tr(request.Nationality,"."),"u")="USA")||($zcvt($tr(request.Nationality,"."),"u")="US")
+		If ('tIsUsCitizen)||(..CreditRating<50) {
+			Set response.IsApproved = 0
+			$$$TRACE("application is denied")
+		} Else {
+			Set response.IsApproved = 1
+			Set response.InterestRate = ..PrimeRate+2+(5*(1-(..CreditRating/100)))
+			$$$TRACE("application is approved for "_response.InterestRate_"%")
+		}
+		Quit
+	} While (0)
+Exit
+	Quit tSC
+Trap
+	Set $ZT="",tSC=$$$EnsSystemError Goto Exit
+]]></Implementation>
+</Method>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DefaultData>BankUSDefaultData</DefaultData>
+<Data name="BankUSDefaultData">
+<Structure>listnode</Structure>
+<Subscript>"BankUS"</Subscript>
+<Value name="1">
+<Value>CreditRating</Value>
+</Value>
+<Value name="2">
+<Value>PrimeRate</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+</Export>

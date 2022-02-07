@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="Demo.Loan.WebOperations">
+<ClassType/>
+<ProcedureBlock>1</ProcedureBlock>
+<Super>Ens.BusinessOperation</Super>
+<TimeCreated>59296,84933.182</TimeCreated>
+
+<Parameter name="INVOCATION">
+<Description>
+2 modes: Queue, InProc</Description>
+<Default>Queue</Default>
+</Parameter>
+
+<Parameter name="USEWEBSERVICES">
+<Default>no</Default>
+</Parameter>
+
+<XData name="MessageMap">
+<Data><![CDATA[
+<MapItems>
+<MapItem MessageType="Demo.Loan.Msg.PrimeRateRequest">
+<Method>GetPrimeRate</Method>
+</MapItem>
+<MapItem MessageType="Demo.Loan.Msg.CreditRatingRequest">
+<Method>GetCreditRating</Method>
+</MapItem>
+</MapItems>
+]]></Data>
+</XData>
+
+<Method name="GetPrimeRate">
+<FormalSpec>pRequest:Demo.Loan.Msg.PrimeRateRequest,*pResponse:Demo.Loan.Msg.PrimeRateResponse</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	$$$TRACE("PrimeRate requested")
+	If ..#USEWEBSERVICES="yes" {
+		Set tResult = ##class(Demo.WebService.FederalReserveClient).GetPrimeRate()
+	} Else {
+		Set tResult = 3
+	}
+	Set pResponse = ##class(Demo.Loan.Msg.PrimeRateResponse).%New()
+	Set pResponse.PrimeRate = tResult
+	$$$TRACE("value of '"_tResult_"' returned")
+	Quit $$$OK
+]]></Implementation>
+</Method>
+
+<Method name="GetCreditRating">
+<FormalSpec>pRequest:Demo.Loan.Msg.CreditRatingRequest,*pResponse:Demo.Loan.Msg.CreditRatingResponse</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	$$$TRACE("CreditRating requested for '"_pRequest.TaxID_"'")
+	If ..#USEWEBSERVICES="yes" {
+		Set tResult = ##class(Demo.WebService.CreditBureauClient).GetCreditRating(pRequest.TaxID)
+	} Else {
+		Set tResult = pRequest.TaxID#10*10
+	}
+	Set pResponse = ##class(Demo.Loan.Msg.CreditRatingResponse).%New()
+	Set pResponse.TaxID = pRequest.TaxID
+	Set pResponse.CreditRating = tResult
+	$$$TRACE("value of '"_tResult_"' returned")
+	Quit $$$OK
+]]></Implementation>
+</Method>
+</Class>
+</Export>

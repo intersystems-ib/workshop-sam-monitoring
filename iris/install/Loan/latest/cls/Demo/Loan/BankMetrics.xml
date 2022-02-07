@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="Demo.Loan.BankMetrics">
+<Description>
+Business Metric Class for Demo Loan Production</Description>
+<ClassType/>
+<ProcedureBlock>1</ProcedureBlock>
+<Super>Ens.BusinessMetric</Super>
+<TimeCreated>60423,56776</TimeCreated>
+
+<Property name="LoansRequested">
+<Description>
+Total number of loan requests to date.</Description>
+<Type>Ens.DataType.Metric</Type>
+<Parameter name="RANGELOWER" value="0"/>
+<Parameter name="RANGEUPPER" value="10000"/>
+<Parameter name="UNITS" value="Applications"/>
+</Property>
+
+<Property name="LoansApproved">
+<Description>
+Total number of loans approved to date.</Description>
+<Type>Ens.DataType.Metric</Type>
+<Parameter name="RANGELOWER" value="0"/>
+<Parameter name="RANGEUPPER" value="10000"/>
+<Parameter name="UNITS" value="Applications"/>
+</Property>
+
+<Method name="OnCalculateMetrics">
+<Description>
+Calculate and update the set of metrics for this class</Description>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	// Note: these calculations are not accurate, they 
+	// are demonstrative.
+	
+	// set the values of our metrics
+	&sql(SELECT COUNT(*) INTO :count
+		 FROM Demo_Loan_Msg.Application)
+
+	Set ..LoansRequested = count
+	
+	// set the values of our metrics
+	&sql(SELECT COUNT(*) INTO :count 
+		 FROM Demo_Loan_Msg.Approval
+		 WHERE IsApproved = 1)
+
+	Set ..LoansApproved = count
+
+	Quit $$$OK
+]]></Implementation>
+</Method>
+</Class>
+</Export>

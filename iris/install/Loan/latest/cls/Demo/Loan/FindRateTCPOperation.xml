@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="Demo.Loan.FindRateTCPOperation">
+<ClassType/>
+<IncludeCode>%occInclude,Ensemble</IncludeCode>
+<ProcedureBlock>1</ProcedureBlock>
+<Super>Ens.BusinessOperation</Super>
+<TimeCreated>59280,43460.487</TimeCreated>
+
+<Parameter name="INVOCATION">
+<Description>
+2 modes: Queue, InProc</Description>
+<Default>Queue</Default>
+</Parameter>
+
+<Parameter name="ADAPTER">
+<Description>
+Name of the adapter class</Description>
+<Default>EnsLib.TCP.TextLineOutboundAdapter</Default>
+</Parameter>
+
+<XData name="MessageMap">
+<Data><![CDATA[
+<MapItem MessageType="Demo.Loan.Msg.SendReply">
+<Method>TCPSendReply</Method>
+</MapItem>
+]]></Data>
+</XData>
+
+<Method name="TCPSendReply">
+<Description>
+Send an approval to the output TCP listener</Description>
+<FormalSpec>pRequest:Demo.Loan.Msg.SendReply,*pResponse:Ens.Response</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	Set tSC=..Adapter.SendMessageString(pRequest.Text)
+	Quit tSC
+]]></Implementation>
+</Method>
+</Class>
+</Export>

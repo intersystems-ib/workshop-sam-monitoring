@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25" zv="Cache for Windows (x86-64) 2017.2.1 (Build 801U)" ts="2018-03-07 12:06:15">
+<Class name="Demo.HL7.MsgRouter.XYZRoutingRule">
+<Description>
+Routing from the XYZ message source.</Description>
+<ProcedureBlock>1</ProcedureBlock>
+<Super>Ens.Rule.Definition</Super>
+<TimeChanged>64708,34556.854889</TimeChanged>
+<TimeCreated>62858,5105.884151</TimeCreated>
+
+<Parameter name="RuleAssistClass">
+<Default>EnsLib.HL7.MsgRouter.RuleAssist</Default>
+</Parameter>
+
+<XData name="RuleDefinition">
+<XMLNamespace>http://www.intersystems.com/rule</XMLNamespace>
+<Data><![CDATA[
+<ruleDefinition alias="" context="EnsLib.HL7.MsgRouter.RoutingEngine" production="Demo.HL7.MsgRouter.Production">
+<ruleSet name="Rules for XYZ application messages" effectiveBegin="" effectiveEnd="">
+<rule name="Check last name in 2.3.1 ADT_A08">
+<constraint name="docCategory" value="2.3.1"></constraint>
+<constraint name="docName" value="ADT_A08"></constraint>
+<when condition="(HL7.{PID:PatientName(1).familylastname} Contains &quot;TEST&quot;)||(HL7.{PID:PatientName(1).familylastname} StartsWith &quot;ZZZ&quot;)">
+<send transform="Demo.HL7.MsgRouter.ADTLastNameTransform" target="Other_FileOperation"></send>
+<return></return>
+</when>
+</rule>
+<rule name="Check last name in demo schema ORM_O01">
+<constraint name="docCategory" value="Demo.HL7.MsgRouter.Schema"></constraint>
+<constraint name="docName" value="ORM_O01"></constraint>
+<when condition="(HL7.{PIDgrp.PID:PatientName(1).familylastname} StartsWith &quot;123&quot;)||(HL7.{PIDgrp.PID:PatientName(1).familylastname} StartsWith &quot;ZZZ&quot;)">
+<send transform="Demo.HL7.MsgRouter.ORMLastNameTransform" target="Other_FileOperation"></send>
+<return></return>
+</when>
+</rule>
+<rule name="Match any demo schema message">
+<constraint name="docCategory" value="Demo.HL7.MsgRouter.Schema"></constraint>
+<when condition="1">
+<send transform="" target="Regular_FileOperation"></send>
+<return></return>
+</when>
+</rule>
+</ruleSet>
+</ruleDefinition>
+]]></Data>
+</XData>
+</Class>
+</Export>

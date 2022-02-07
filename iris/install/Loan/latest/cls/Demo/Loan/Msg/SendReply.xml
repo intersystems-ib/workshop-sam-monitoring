@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="Demo.Loan.Msg.SendReply">
+<ClassType>persistent</ClassType>
+<ProcedureBlock>1</ProcedureBlock>
+<Super>Ens.Request</Super>
+<TimeCreated>59277,25915.521</TimeCreated>
+
+<Property name="Text">
+<Type>%String</Type>
+<Parameter name="MAXLEN"/>
+</Property>
+
+<Property name="Destination">
+<Type>%String</Type>
+<Parameter name="MAXLEN" value="1000"/>
+</Property>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DefaultData>ApprovalDefaultData</DefaultData>
+<Data name="ApprovalDefaultData">
+<Subscript>"Approval"</Subscript>
+<Value name="1">
+<Value>BankName</Value>
+</Value>
+<Value name="2">
+<Value>InterestRate</Value>
+</Value>
+<Value name="3">
+<Value>IsApproved</Value>
+</Value>
+<Value name="4">
+<Value>Destination</Value>
+</Value>
+<Value name="5">
+<Value>Text</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+</Export>

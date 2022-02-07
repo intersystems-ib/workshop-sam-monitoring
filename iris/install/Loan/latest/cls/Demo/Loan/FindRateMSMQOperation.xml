@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="Demo.Loan.FindRateMSMQOperation">
+<ClassType/>
+<ProcedureBlock>1</ProcedureBlock>
+<Super>Ens.BusinessOperation</Super>
+<TimeCreated>59280,43460.487</TimeCreated>
+
+<Parameter name="INVOCATION">
+<Description>
+2 modes: Queue, InProc</Description>
+<Default>Queue</Default>
+</Parameter>
+
+<Parameter name="ADAPTER">
+<Description>
+Name of the adapter class</Description>
+<Default>EnsLib.MSMQ.OutboundAdapter</Default>
+</Parameter>
+
+<XData name="MessageMap">
+<Data><![CDATA[
+<MapItem MessageType="Demo.Loan.Msg.SendReply">
+<Method>MSMQSendReply</Method>
+</MapItem>
+]]></Data>
+</XData>
+
+<Method name="MSMQSendReply">
+<Description>
+Send an approval to the output message</Description>
+<FormalSpec>pRequest:Demo.Loan.Msg.SendReply,*pResponse:Ens.Response</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	$$$TRACE("write to msmq "_pRequest.Destination)
+	Set tSC=..Adapter.SendMessage(pRequest.Destination, pRequest.Text)
+	Quit tSC
+]]></Implementation>
+</Method>
+</Class>
+</Export>

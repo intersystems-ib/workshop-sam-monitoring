@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="Demo.Loan.BankUSTerminalService">
+<ClassType/>
+<ProcedureBlock>1</ProcedureBlock>
+<Super>Ens.BusinessService</Super>
+<TimeCreated>59276,57717.364</TimeCreated>
+
+<Method name="OnProcessInput">
+<FormalSpec>pInput:Ens.StringContainer,pOutput:%RegisteredObject</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	#; assuming the first line is 'amount:name:TaxID:nationality'
+	Set tSubject=pInput.StringValue
+
+	Set tApplication = ##class(Demo.Loan.Msg.Application).%New()
+	Set tApplication.Amount=$p(tSubject,":",1)
+	Set tApplication.Name=$p(tSubject,":",2)
+	Set tApplication.TaxID=$p(tSubject,":",3)
+	Set tApplication.Nationality=$p(tSubject,":",4)
+	Set tSC=..SendRequestSync("Demo.Loan.BankUS",tApplication,.tApproval)  Quit:$$$ISERR(tSC) tSC
+
+	Set pOutput=##class(Ens.StringContainer).%New(tApproval.GetText())
+	Quit tSC
+]]></Implementation>
+</Method>
+</Class>
+</Export>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="Demo.Loan.Msg.CreditRatingRequest">
+<ClassType>persistent</ClassType>
+<ProcedureBlock>1</ProcedureBlock>
+<Super>Ens.Request</Super>
+<TimeCreated>59296,84933.272</TimeCreated>
+
+<Parameter name="RESPONSECLASSNAME">
+<Default>Demo.Loan.Msg.CreditRatingResponse</Default>
+</Parameter>
+
+<Property name="TaxID">
+<Type>%String</Type>
+</Property>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DefaultData>CreditRatingRequestDefaultData</DefaultData>
+<Data name="CreditRatingRequestDefaultData">
+<Subscript>"CreditRatingRequest"</Subscript>
+<Value name="1">
+<Value>TaxID</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+</Export>

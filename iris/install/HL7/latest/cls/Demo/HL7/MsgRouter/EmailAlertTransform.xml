@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="Demo.HL7.MsgRouter.EmailAlertTransform">
+<Super>Ens.DataTransformDTL</Super>
+<TimeCreated>63260,3644.868482</TimeCreated>
+<DependsOn>Ens.AlertRequest</DependsOn>
+
+<Parameter name="IGNOREMISSINGSOURCE">
+<Default>1</Default>
+</Parameter>
+
+<Parameter name="REPORTERRORS">
+<Default>1</Default>
+</Parameter>
+
+<XData name="DTL">
+<XMLNamespace>http://www.intersystems.com/dtl</XMLNamespace>
+<Data><![CDATA[
+<transform sourceClass='Ens.AlertRequest' targetClass='Ens.AlertRequest' create='new' language='objectscript' >
+<assign value='source.SourceConfigName' property='target.SourceConfigName' action='set'  />
+<assign value='source.AlertText' property='target.AlertText' action='set'  />
+<assign value='..Lookup("AlertTable",source.SourceConfigName)' property='target.AlertDestination' action='set'  />
+</transform>
+]]></Data>
+</XData>
+</Class>
+</Export>

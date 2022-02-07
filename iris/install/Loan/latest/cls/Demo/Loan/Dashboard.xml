@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="Demo.Loan.Dashboard">
+<Description>
+Business Activity Dashboard for Demo.Loan application.</Description>
+<ClassType/>
+<ProcedureBlock>1</ProcedureBlock>
+<Super>Ens.Dashboard</Super>
+<TimeCreated>60423,56776</TimeCreated>
+
+<XData name="Dashboard">
+<Data><![CDATA[
+<Dashboard RefreshRate="2000" Metric="Demo.Loan.BankMetrics">
+<Speedometer Label="Requests" Property="LoansRequested" />
+<Speedometer Label="Approvals" Property="LoansApproved" />
+</Dashboard>
+]]></Data>
+</XData>
+</Class>
+</Export>

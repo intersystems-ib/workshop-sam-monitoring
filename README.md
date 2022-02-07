@@ -8,15 +8,6 @@ Workshop where you will learn how to monitor InterSystems IRIS instances using S
 * [Visual Studio Code](https://code.visualstudio.com/download) + [InterSystems ObjectScript VSCode Extension](https://marketplace.visualstudio.com/items?itemName=daimor.vscode-objectscript)
 
 # Setup
-* Log-in into https://containers.intersystems.com/ using your WRC credentials and get a *token*.
-* Set up docker login in your computer:
-```bash
-docker login -u="user" -p="token" containers.intersystems.com
-```
-* Download SAM image:
-```bash
-docker pull containers.intersystems.com/intersystems/sam:1.0.0.115
-```
 
 
 ```
@@ -24,8 +15,14 @@ cd iris
 docker-compose up -d
 ```
 
-
 ```
 cd sam-1.0.0.115-unix
 ./start.sh
 ```
+
+http://localhost:8080/api/sam/app/index.csp
+
+
+host.docker.internal
+
+docker-compose -p sam down -v

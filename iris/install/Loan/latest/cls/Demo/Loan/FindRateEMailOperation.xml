@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="Demo.Loan.FindRateEMailOperation">
+<Description>
+Sends emails based on EMail Adapter config settings and the property values of a Demo.Loan.Msg.SendReply request object</Description>
+<ClassType/>
+<ProcedureBlock>1</ProcedureBlock>
+<Super>Ens.BusinessOperation</Super>
+<TimeCreated>59280,43460.487</TimeCreated>
+
+<Parameter name="INVOCATION">
+<Description>
+2 modes: Queue, InProc</Description>
+<Default>Queue</Default>
+</Parameter>
+
+<Parameter name="ADAPTER">
+<Description>
+Name of the adapter class</Description>
+<Default>EnsLib.EMail.OutboundAdapter</Default>
+</Parameter>
+
+<XData name="MessageMap">
+<Data><![CDATA[
+<MapItem MessageType="Demo.Loan.Msg.SendReply">
+<Method>EMailSendReply</Method>
+</MapItem>
+]]></Data>
+</XData>
+
+<Method name="EMailSendReply">
+<Description>
+Send an approval email to the applicant</Description>
+<FormalSpec>pRequest:Demo.Loan.Msg.SendReply,*pResponse:Ens.Response</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	If pRequest.Destination="" $$$TRACE("no email address.") Quit $$$OK
+	$$$TRACE("send email to "_pRequest.Destination)
+	Set tMailMessage=##class(%Net.MailMessage).%New()
+	Do tMailMessage.To.Insert(pRequest.Destination)
+	Set tMailMessage.Subject="RE: Loan Application Approval"
+	set tMailMessage.Charset="UTF-8"
+	Set tSC=tMailMessage.TextData.Write(pRequest.Text)  Quit:$$$ISERR(tSC) tSC
+	Set tSC=..Adapter.SendMail(tMailMessage)
+	Quit tSC
+]]></Implementation>
+</Method>
+</Class>
+</Export>

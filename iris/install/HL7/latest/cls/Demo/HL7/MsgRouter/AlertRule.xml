@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25" zv="Cache for Windows (x86-64) 2013.2 (Build 286U)" ts="2013-04-12 13:26:30">
+<Class name="Demo.HL7.MsgRouter.AlertRule">
+<Description>
+See the AlertTable lookup table for a mapping of alert sources to email addresses. If no match is found in the lookup, EmailAlertTransformation sends the alert to the configured Recipient for the EMailAlertOperation.</Description>
+<ProcedureBlock>1</ProcedureBlock>
+<Super>Ens.Rule.Definition</Super>
+<TimeChanged>62858,5105.32698</TimeChanged>
+<TimeCreated>62858,5105.314808</TimeCreated>
+
+<Parameter name="RuleAssistClass">
+<Default>EnsLib.MsgRouter.RuleAssist</Default>
+</Parameter>
+
+<XData name="RuleDefinition">
+<XMLNamespace>http://www.intersystems.com/rule</XMLNamespace>
+<Data><![CDATA[
+<ruleDefinition alias="" context="EnsLib.MsgRouter.RoutingEngine" production="">
+<ruleSet name="" effectiveBegin="" effectiveEnd="">
+<rule name="">
+<constraint name="msgClass" value="Ens.AlertRequest"></constraint>
+<when condition="1">
+<send transform="Demo.HL7.MsgRouter.EmailAlertTransform" target="EMailAlertOperation"></send>
+<return></return>
+</when>
+</rule>
+</ruleSet>
+</ruleDefinition>
+]]></Data>
+</XData>
+</Class>
+</Export>
