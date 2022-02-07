@@ -6,9 +6,7 @@ services:
       dockerfile: Dockerfile
     container_name: iris
     ports:
-      - 9191:52773
-      - 9192:1972
-    volumes:
-      - ./test:/test
-
+      - 52773:52773
+      - 1972:1972
+      
 

@@ -26,3 +26,7 @@ http://localhost:8080/api/sam/app/index.csp
 host.docker.internal
 
 docker-compose -p sam down -v
+
+
+
+https://docs.intersystems.com/irislatest/csp/docbook/DocBook.UI.Page.cls?KEY=GCM_rest
