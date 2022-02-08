@@ -40,12 +40,12 @@ Cluster name: `workshop-cluster`
 After creating the cluster, you can add the instances you want to monitor.
 As we will monitoring instances that are running as containers on the same host, we will use `host.docker.internal` as ip address.
 
-* Click on `+New` Instances and add two instances:
-
+* Click on `+New` Instances and irisA instance:
   * IP: `host.docker.internal`
   * Port: `9192`
   * Name: `irisA`
-and,
+
+* Add irisB instance:
   * IP: `host.docker.internal`
   * Port: `9292`
   * Name: `irisB`
@@ -53,7 +53,7 @@ and,
 * After defining instances, acces the instance dashboard navigating `Clusters > workshop-cluster > instances`
 
 ## (c). Defining new cluster alert rules
-IRIS alerts are automatically collected by SAM. However, you can add additional events that generate alerts using *Prometheus Query Language* expressions.
+IRIS alerts are automatically collected by SAM. However, you can add additional events that generate alerts using *Prometheus Query Language* expressions:
 
 * Have a look at the available metrics for irisA instance: http://localhost:9191/api/monitor/metrics
 
