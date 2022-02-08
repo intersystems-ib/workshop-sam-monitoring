@@ -75,7 +75,7 @@ Let's create a new alert rule for a cluster:
 Alerts will be displayed in the Alerts Panel and in the instance state, check [Understanding Instance State](https://docs.intersystems.com/sam/csp/docbook/DocBook.UI.Page.cls?KEY=ASAM#ASAM_use_instance_state).
 
 
-## (d). Alert handling
+## (d). Alert handling
 You can create alert handlers to specify additional actions for SAM for an alert fires.
 
 * Have a look at [AlertHandler](iris/src/Demo/AlertHandler.cls). You can use something similar to send text messages using Telegram or email.
@@ -119,7 +119,7 @@ Be sure to run this in both instances ([irisA](http://localhost:9191/terminal/) 
 * Also, in this case as the metric is the `USER` namespace, add the `%DB_USER` resource to `/api/monitor` webb app. Once again, be sure to do that both in [irisA](http://localhost:9191/csp/sys/sec/%25CSP.UI.Portal.Applications.Web.zen?PID=%2Fapi%2Fmonitor) and [irisB](http://localhost:9291/csp/sys/sec/%25CSP.UI.Portal.Applications.Web.zen?PID=%2Fapi%2Fmonitor)
 
 * Finally, check the available metrics now, you should have a new metric called `pharma_prescription`:
-http://localhost:9191/api/monitor/metrics
-http://localhost:9291/api/monitor/metrics
+  * http://localhost:9191/api/monitor/metrics and
+  * http://localhost:9291/api/monitor/metrics
 
 
