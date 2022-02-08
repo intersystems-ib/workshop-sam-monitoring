@@ -40,7 +40,7 @@ To demonstrate alerts, give EMailAlertOperation a valid STMP server and Recipien
     <Setting Target="Host" Name="AckTargetConfigNames"></Setting>
     <Setting Target="Host" Name="Framing">Flexible</Setting>
     <Setting Target="Host" Name="TargetConfigNames">XYZ_Router</Setting>
-    <Setting Target="Host" Name="SearchTableClass">Demo.HL7.MsgRouter.SearchTable</Setting>
+    <Setting Target="Host" Name="SearchTableClass">EnsLib.HL7.SearchTable</Setting>
     <Setting Target="Host" Name="LocalFacilityApplication"></Setting>
     <Setting Target="Host" Name="AckMode">Never</Setting>
     <Setting Target="Host" Name="UseAckCommitCodes">1</Setting>
@@ -195,7 +195,7 @@ To demonstrate alerts, give EMailAlertOperation a valid STMP server and Recipien
   </Item>
   <Item Name="Other_FileOperation" Category="" ClassName="EnsLib.HL7.Operation.FileOperation" PoolSize="1" Enabled="true" Foreground="false" Comment="Special destination for HL7 messages." LogTraceEvents="false" Schedule="">
     <Setting Target="Host" Name="InactivityTimeout">0</Setting>
-    <Setting Target="Host" Name="Filename">%H%M_Other_%F.txt</Setting>
+    <Setting Target="Host" Name="Filename">%H%M_XYZ.txt</Setting>
     <Setting Target="Host" Name="Separators"><![CDATA[|^~\&]]></Setting>
     <Setting Target="Host" Name="SearchTableClass"></Setting>
     <Setting Target="Host" Name="AlertRetryGracePeriod">0</Setting>
@@ -204,7 +204,7 @@ To demonstrate alerts, give EMailAlertOperation a valid STMP server and Recipien
     <Setting Target="Host" Name="AlertOnError">1</Setting>
     <Setting Target="Host" Name="ArchiveIO">0</Setting>
     <Setting Target="Host" Name="Framing">AsciiLF</Setting>
-    <Setting Target="Adapter" Name="FilePath">/test/out/</Setting>
+    <Setting Target="Adapter" Name="FilePath">/test/in/</Setting>
     <Setting Target="Adapter" Name="Overwrite">0</Setting>
     <Setting Target="Adapter" Name="Charset">Default</Setting>
     <Setting Target="Adapter" Name="OpenTimeout">5</Setting>
@@ -242,6 +242,8 @@ To demonstrate alerts, give EMailAlertOperation a valid STMP server and Recipien
     <Setting Target="Adapter" Name="Overwrite">0</Setting>
     <Setting Target="Adapter" Name="Charset">Default</Setting>
     <Setting Target="Adapter" Name="OpenTimeout">5</Setting>
+  </Item>
+  <Item Name="Pharma Process" Category="" ClassName="Demo.HL7.PharmaProcess" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
   </Item>
 </Production>
 }

@@ -100,15 +100,26 @@ The instance dashboard displays several metrics. This dasboard is generated usin
 Now, go back to SAM instance dashboard and check your changes.
 
 
+## (f). Adding custom application metrics
+You can add your own custom application metrics and show them in the dashboard or define alerts based on them.
 
+Let's create a custom metric:
 
+* Have a look at [Demo.Metrics.Pharma](iris/src/Demo/Metrics/Pharma.cls). This metric is simply counting the prescriptions that are processed in the HL7 production.
 
+* Once the metric is developed, we must enable this, you can use WebTerminal to enter this command:
 
+```objectscript
+zn "%SYS"
+write ##class(SYS.Monitor.SAM.Config).AddApplicationClass("Demo.Metrics.Pharma", "USER")
+```
 
+Be sure to run this in both instances ([irisA](http://localhost:9191/terminal/) and [irisB](http://localhost:9291/terminal/))
 
-Check differences in config files
+* Also, in this case as the metric is the `USER` namespace, add the `%DB_USER` resource to `/api/monitor` webb app. Once again, be sure to do that both in [irisA](http://localhost:9191/csp/sys/sec/%25CSP.UI.Portal.Applications.Web.zen?PID=%2Fapi%2Fmonitor) and [irisB](http://localhost:9291/csp/sys/sec/%25CSP.UI.Portal.Applications.Web.zen?PID=%2Fapi%2Fmonitor)
 
-Application Metrics
-https://docs.intersystems.com/irislatest/csp/docbook/Doc.View.cls?KEY=GCM_rest#GCM_rest_metrics_application
+* Finally, check the available metrics now, you should have a new metric called `pharma_prescription`:
+http://localhost:9191/api/monitor/metrics
+http://localhost:9291/api/monitor/metrics
 
 
