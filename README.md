@@ -75,6 +75,15 @@ Let's create a new alert rule for a cluster:
 Alerts will be displayed in the Alerts Panel and in the instance state, check [Understanding Instance State](https://docs.intersystems.com/sam/csp/docbook/DocBook.UI.Page.cls?KEY=ASAM#ASAM_use_instance_state).
 
 
+## (d). Alert handling
+You can create alert handlers to specify additional actions for SAM for an alert fires.
+
+* Have a look at [AlertHandler](iris/src/Demo/AlertHandler.cls). You can use something similar to send text messages using Telegram or email.
+
+* After creating the alert handler, you need to import it into SAM. We will use the Management Portal of the InterSystems IRIS instance that is included with SAM to import the handler.
+
+  * Access http://localhost:8080/csp/sys/UtilHome.csp using `superuser` and password you defined for SAM.
+  * `System Explorer > Classes > Namespace SAM > Import > My Local Machine` and import [AlertHandler](iris/src/Demo/AlertHandler.cls).
 
 Check differences in config files
 
