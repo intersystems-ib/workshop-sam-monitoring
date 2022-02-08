@@ -85,12 +85,28 @@ You can create alert handlers to specify additional actions for SAM for an alert
   * Access http://localhost:8080/csp/sys/UtilHome.csp using `superuser` and password you defined for SAM.
   * `System Explorer > Classes > Namespace SAM > Import > My Local Machine` and import [AlertHandler](iris/src/Demo/AlertHandler.cls).
 
+
+## (e). Grafana dashboard
+The instance dashboard displays several metrics. This dasboard is generated using Grafana, an open-source metrics visualization tool. You can customize the dashboard as you need.
+
+* Enter some instance dashboard and click on `View in Grafana`.
+* Click on Add panel icon <img src="img/grafana-new-panel-icon.png" width="20px"/>
+* Click on `Add Query`, choose `SAM Collector``
+* Choose some metric like `iris_csp_gateway_latency`.
+* Legend: `{{instance}}`
+* Then, play with some visualization options (e.g. Graph, Stat, Gauge, Heatmap, etc.)
+* Finally, change panel title and save it.
+
+Now, go back to SAM instance dashboard and check your changes.
+
+
+
+
+
+
+
+
 Check differences in config files
-
-Alert Handling?
-
-Metrics: /api/monitor
-https://docs.intersystems.com/irislatest/csp/docbook/DocBook.UI.Page.cls?KEY=GCM_rest
 
 Application Metrics
 https://docs.intersystems.com/irislatest/csp/docbook/Doc.View.cls?KEY=GCM_rest#GCM_rest_metrics_application
