@@ -28,7 +28,7 @@ docker-compose up -d
 
 # Examples  
 
-## (a.1) Creating a new cluster
+## (a). Creating a new cluster
 Clusters are set of instances you want to monitor using SAM. So, you first must define a new cluster.
 
 * Access SAM in http://localhost:8080/api/sam/app/index.csp using `superuser`/`SYS`. System will ask you to change the password.
@@ -36,25 +36,45 @@ Clusters are set of instances you want to monitor using SAM. So, you first must 
 * Click on *Create Your First Cluster*
 Cluster name: `workshop-cluster`
 
-## (b.1) Adding an instance to monitor
+## (b). Adding IRIS instances to monitor
 After creating the cluster, you can add the instances you want to monitor.
 As we will monitoring instances that are running as containers on the same host, we will use `host.docker.internal` as ip address.
 
-* Click on *New* instances and add two instances:
+* Click on `+New` Instances and add two instances:
 
-IP: `host.docker.internal`
-Port: `9192`
-Name: `irisA`
+  * IP: `host.docker.internal`
+  * Port: `9192`
+  * Name: `irisA`
+and,
+  * IP: `host.docker.internal`
+  * Port: `9292`
+  * Name: `irisB`
 
-IP: `host.docker.internal`
-Port: `9292`
-Name: `irisB`
+* After defining instances, acces the instance dashboard navigating `Clusters > workshop-cluster > instances`
 
-* After defining instances, check you can see correctly the instance dashboard navigating `Clusters > workshop-cluster > instances`
+## (c). Defining new cluster alert rules
+IRIS alerts are automatically collected by SAM. However, you can add additional events that generate alerts using *Prometheus Query Language* expressions.
+
+* Have a look at the available metrics for irisA instance: http://localhost:9191/api/monitor/metrics
+
+* Check [Monitoring InterSystems IRIS using REST API](https://docs.intersystems.com/irislatest/csp/docbook/DocBook.UI.Page.cls?KEY=GCM_rest) for more information about `/api/monitor/metrics`
+
+Let's create a new alert rule for a cluster:
+
+* Go to SAM main page in http://localhost:8080/api/sam/app/index.csp 
+
+* Select the `workshop-cluster` we have already defined and click `Edit Cluster`.
+
+* Click on `+New` Alert rules:
+
+  * Alert rule name: `iris_csp_gateway_latency greater than 1s`
+  * Alert severity: `Warning`
+  * Alert expression: `iris_csp_gateway_latency{cluster="workshop-cluster",id="127.0.0.1:52773"}>1.0`
+  * Alert message: `Gateway latency is {{ $value }}`
+
+Alerts will be displayed in the Alerts Panel and in the instance state, check [Understanding Instance State](https://docs.intersystems.com/sam/csp/docbook/DocBook.UI.Page.cls?KEY=ASAM#ASAM_use_instance_state).
 
 
-
-Defining cluster alert rules
 
 Check differences in config files
 
