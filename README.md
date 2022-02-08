@@ -1,6 +1,8 @@
 # Workshop: Monitoring IRIS instances using SAM
 Workshop where you will learn how to monitor InterSystems IRIS instances using SAM (System Alerting and Monitoring).
 
+<imgr src="img/sam-diagram.png" width="500px"/>
+
 # What do you need to install? 
 * [Git](https://git-scm.com/downloads) 
 * [Docker](https://www.docker.com/products/docker-desktop) (if you are using Windows, make sure you set your Docker installation to use "Linux containers").
