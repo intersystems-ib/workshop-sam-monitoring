@@ -1,7 +1,7 @@
 # Workshop: Monitoring IRIS instances using SAM
 Workshop where you will learn how to monitor InterSystems IRIS instances using SAM (System Alerting and Monitoring).
 
-<img src="img/sam-diagram.png" width="500px"/>
+<img src="img/sam-diagram.png" width="700px"/>
 
 # What do you need to install? 
 * [Git](https://git-scm.com/downloads) 
