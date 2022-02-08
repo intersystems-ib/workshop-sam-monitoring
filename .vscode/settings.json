@@ -16,10 +16,10 @@
         "username": "superuser",
         "password": "SYS",
         "ns": "USER",
-        "port": 52773,
+        "port": 9191,
         "host": "localhost",
         "docker-compose": {
-            "service": "iris",
+            "service": "irisA",
         },
         "links": {
             "SOAP Wizard": "${serverUrl}/isc/studio/templates/%25ZEN.Template.AddInWizard.SOAPWizard.cls?Namespace=${namespace}${serverAuth}",
