@@ -93,7 +93,7 @@ The instance dashboard displays several metrics. This dasboard is generated usin
 
 * Enter some instance dashboard and click on `View in Grafana`.
 * Click on Add panel icon <img src="img/grafana-new-panel-icon.png" width="20px"/>
-* Click on `Add Query`, choose `SAM Collector``
+* Click on `Add Query`, choose `SAM Collector`.
 * Choose some metric like `iris_csp_gateway_latency`.
 * Legend: `{{instance}}`
 * Then, play with some visualization options (e.g. Graph, Stat, Gauge, Heatmap, etc.)
