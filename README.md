@@ -44,12 +44,12 @@ As we will monitoring instances that are running as containers on the same host,
 
 * Click on `+New` Instances and irisA instance:
   * IP: `host.docker.internal`
-  * Port: `9192`
+  * Port: `9191`
   * Name: `irisA`
 
 * Add irisB instance:
   * IP: `host.docker.internal`
-  * Port: `9292`
+  * Port: `9291`
   * Name: `irisB`
 
 * After defining instances, acces the instance dashboard navigating `Clusters > workshop-cluster > instances`
