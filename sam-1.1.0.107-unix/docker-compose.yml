@@ -28,18 +28,26 @@ services:
       - ./config/grafana/dashboard-provider.yml:/etc/grafana/provisioning/dashboards/dashboard-provider.yml
       - ./config/grafana/dashboard.json:/var/lib/grafana/dashboards/dashboard.json
   iris:
+    depends_on:
+      - iris-init
     environment:
       - ISC_DATA_DIRECTORY=/dur/iconfig
     expose:
       - '51773'
       - '52773'
     hostname: IRIS
-    image: store/intersystems/sam:1.0.0.115
+    image: containers.intersystems.com/intersystems/sam:1.1.0.107
     init: true
+    command: --check-caps false
     restart: on-failure
     volumes:
       - irisdata:/dur
       - ./config:/config
+  iris-init:
+    command: 'chown -R 51773:51773 /dur'
+    image: busybox
+    volumes:
+      - irisdata:/dur
   nginx:
     depends_on:
       - iris

@@ -24,8 +24,8 @@ docker-compose up -d
 http://localhost:8080/api/sam/app/index.csp (`superuser`/`SYS`)
 
 ```
-cd sam-1.0.0.115-unix
-docker-compose up -d
+cd sam-1.1.0.107-unix
+./start.sh
 ```
 
 # Examples  

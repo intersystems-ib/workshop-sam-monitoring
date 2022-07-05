@@ -6,6 +6,7 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: irisA
+    command: --check-caps false
     image: workshop-sam-monitoring:iris
     ports:
       - 9191:52773
@@ -16,6 +17,7 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: irisB
+    command: --check-caps false
     image: workshop-sam-monitoring:iris
     ports:
       - 9291:52773
