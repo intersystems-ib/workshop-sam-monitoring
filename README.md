@@ -124,4 +124,18 @@ Be sure to run this in both instances ([irisA](http://localhost:9191/terminal/) 
   * http://localhost:9191/api/monitor/metrics and
   * http://localhost:9291/api/monitor/metrics
 
+## (g). Interoperability metrics
 
+You can activate metrics for your interoperability productions. 
+
+Run the following in [irisA](http://localhost:9191/terminal/) and [irisB](http://localhost:9291/terminal/)
+
+```
+zn "USER" 
+do ##class(Ens.Util.Statistics).DisableSAMIncludeProdLabel()
+do ##class(Ens.Util.Statistics).EnableSAMForNamespace(,1)
+```
+
+* After that, have a look at the metrics again in:
+  * http://localhost:9191/api/monitor/metrics and
+  * http://localhost:9291/api/monitor/metrics
