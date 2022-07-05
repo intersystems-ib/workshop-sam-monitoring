@@ -33,7 +33,7 @@ cd sam-1.1.0.107-unix
 ## (a). Creating a new cluster
 Clusters are set of instances you want to monitor using SAM. So, you first must define a new cluster.
 
-* Access SAM in http://localhost:8080/api/sam/app/index.csp using `superuser`/`SYS`. System will ask you to change the password.
+* Access SAM in http://localhost:8080/api/sam/app/index.csp using `superuser`/`SYS`.
 
 * Click on *Create Your First Cluster*
 Cluster name: `workshop-cluster`
