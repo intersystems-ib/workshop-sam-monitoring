@@ -4,6 +4,6 @@ datasources:
   - name: SAM Collector
     type: prometheus
     access: proxy
-    url: http://iris:52773/api/sam/private/prometheus
+    url: http://prometheus:9090
     isDefault: true
     editable: false

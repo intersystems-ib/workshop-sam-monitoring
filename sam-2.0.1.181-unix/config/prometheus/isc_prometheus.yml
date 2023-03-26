@@ -1,0 +1,35 @@
+global:
+  scrape_interval:     15s
+  evaluation_interval: 15s
+
+remote_read:
+  - url: "http://iris:52773/api/sam/private/db/read"
+remote_write:
+  - url: "http://iris:52773/api/sam/private/db/write"
+
+alerting:
+  alertmanagers:
+  - static_configs:
+    - targets:
+      - alertmanager:9093
+
+rule_files:
+  - "./isc_alert_rules.yml"
+
+scrape_configs:
+  - job_name: 'SAM'
+    metrics_path: '/api/monitor/metrics'
+    scheme: http
+    http_sd_configs:
+      - url: http://iris:52773/api/sam/private/targets
+        refresh_interval: 5y
+    relabel_configs:
+      - source_labels: [__address__,__metrics_path__]
+        separator: ''
+        regex:  '[^/]+(/.*)'
+        target_label: __metrics_path__
+      - source_labels: [__address__]
+        target_label: instance
+      - source_labels: [__address__]
+        regex:  '([^/]+)/.*'
+        target_label: __address__

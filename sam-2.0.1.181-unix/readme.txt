@@ -51,19 +51,20 @@ The first time you run SAM, Docker takes several seconds
 (depending on your network) to pull the various containers. 
 When the command is finished (and on subsequent runs), you should 
 see the following lines confirming that SAM is up and running:
+   Creating sam_iris-init_1 ... done
    Creating sam_iris_1 ... done
    Creating sam_prometheus_1 ... done
    Creating sam_grafana_1    ... done
    Creating sam_alertmanager_1 ... done
    Creating sam_nginx_1      ... done
 
-You can verify that all four containers are running by via docker ps, such as:
+You can verify that all five containers are running by via docker ps, such as:
 $ docker ps
 CONTAINER ID        IMAGE                                              COMMAND                  CREATED             STATUS                   PORTS                                                  NAMES
-389b58657d96        nginx:1.17.9-alpine                                "nginx -g 'daemon of…"   3 minutes ago       Up 3 minutes             80/tcp, 0.0.0.0:8080->8080/tcp                         sam_nginx_1
-1b50ea425058        grafana/grafana:6.7.1                              "/run.sh"                3 minutes ago       Up 3 minutes             3000/tcp                                               sam_grafana_1
-d2c825f9d220        prom/alertmanager:v0.20.0                          "/bin/alertmanager -…"   3 minutes ago       Up 3 minutes             9093/tcp                                               sam_alertmanager_1
-18ba4eed08dd        prom/prometheus:v2.17.1                            "/bin/prometheus --w…"   3 minutes ago       Up 3 minutes             9090/tcp                                               sam_prometheus_1
+389b58657d96        nginx:1.22.0-alpine                                "nginx -g 'daemon of…"   3 minutes ago       Up 3 minutes             80/tcp, 0.0.0.0:8080->8080/tcp                         sam_nginx_1
+1b50ea425058        grafana/grafana:8.5.4                              "/run.sh"                3 minutes ago       Up 3 minutes             3000/tcp                                               sam_grafana_1
+d2c825f9d220        prom/alertmanager:v0.24.0                          "/bin/alertmanager -…"   3 minutes ago       Up 3 minutes             9093/tcp                                               sam_alertmanager_1
+18ba4eed08dd        prom/prometheus:v2.36.0                            "/bin/prometheus --w…"   3 minutes ago       Up 3 minutes             9090/tcp                                               sam_prometheus_1
 5bc04b24c221        intersystems/sam:1.0.0.63                          "/iris-main"             3 minutes ago       Up 3 minutes (healthy)   2188/tcp, 51773/tcp, 52773/tcp, 53773/tcp, 54773/tcp   sam_iris_1
 
 If you need to shut down SAM, use the following script:

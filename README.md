@@ -24,7 +24,7 @@ docker-compose up -d
 http://localhost:8080/api/sam/app/index.csp (`superuser`/`SYS`)
 
 ```
-cd sam-1.1.0.107-unix
+cd sam-2.0.1.181-unix
 ./start.sh
 ```
 
@@ -52,7 +52,7 @@ As we will monitoring instances that are running as containers on the same host,
   * Port: `9291`
   * Name: `irisB`
 
-* After defining instances, acces the instance dashboard navigating `Clusters > workshop-cluster > instances`
+* After defining instances, access the instance dashboard navigating `Clusters > workshop-cluster > instances`
 
 ## (c). Defining new cluster alert rules
 IRIS alerts are automatically collected by SAM. However, you can add additional events that generate alerts using *Prometheus Query Language* expressions:

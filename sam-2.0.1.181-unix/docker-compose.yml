@@ -10,7 +10,7 @@ services:
       - prometheus
     expose:
       - '9093'
-    image: prom/alertmanager:v0.20.0
+    image: prom/alertmanager:v0.24.0
     restart: on-failure
     volumes:
       - ./config/alertmanager:/config
@@ -19,15 +19,16 @@ services:
       - prometheus
     expose:
       - '3000'
-    image: grafana/grafana:6.7.1
+    image: grafana/grafana:9.1.7
     restart: on-failure
     volumes:
-      - grafdata:/var/lib/grafana
+      - ./config/grafana/data:/var/lib/grafana
       - ./config/grafana/grafana.ini:/etc/grafana/grafana.ini
       - ./config/grafana/datasource.yml:/etc/grafana/provisioning/datasources/datasource.yml
       - ./config/grafana/dashboard-provider.yml:/etc/grafana/provisioning/dashboards/dashboard-provider.yml
       - ./config/grafana/dashboard.json:/var/lib/grafana/dashboards/dashboard.json
   iris:
+    command: '--check-caps false'
     depends_on:
       - iris-init
     environment:
@@ -36,13 +37,14 @@ services:
       - '51773'
       - '52773'
     hostname: IRIS
-    image: containers.intersystems.com/intersystems/sam:1.1.0.107
+    image: containers.intersystems.com/intersystems/sam:2.0.1.181
     init: true
-    command: --check-caps false
     restart: on-failure
     volumes:
       - irisdata:/dur
       - ./config:/config
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
   iris-init:
     command: 'chown -R 51773:51773 /dur'
     image: busybox
@@ -53,7 +55,7 @@ services:
       - iris
       - prometheus
       - grafana
-    image: nginx:1.17.9-alpine
+    image: nginx:1.23.1-alpine
     ports:
       - 8080:8080
     restart: on-failure
@@ -68,11 +70,10 @@ services:
       - iris
     expose:
       - '9090'
-    image: prom/prometheus:v2.17.1
+    image: prom/prometheus:v2.39.0
     restart: on-failure
     volumes:
       - ./config/prometheus:/config
 version: '3.7'
 volumes:
-  grafdata: ~
   irisdata: ~
