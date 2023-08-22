@@ -54,6 +54,8 @@ As we will monitoring instances that are running as containers on the same host,
 
 * After defining instances, access the instance dashboard navigating `Clusters > workshop-cluster > instances`
 
+<img src="img/sam-default-dashboard.png" width="900" />
+
 ## (c). Defining new cluster alert rules
 IRIS alerts are automatically collected by SAM. However, you can add additional events that generate alerts using *Prometheus Query Language* expressions:
 
