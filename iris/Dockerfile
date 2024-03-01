@@ -1,4 +1,5 @@
-FROM intersystemsdc/irishealth-community:2022.2.0.368.0-zpm
+ARG IMAGE=containers.intersystems.com/intersystems/irishealth-community:2023.1.0.229.0
+FROM $IMAGE
 
 # create /app
 USER root
@@ -23,6 +24,8 @@ SHELL ["/irissession.sh"]
 
 RUN \
   zn "USER" \
+  # install zpm
+  set r=##class(%Net.HttpRequest).%New(),r.Server="pm.community.intersystems.com",r.SSLConfiguration="ISC.FeatureTracker.SSL.Config" d r.Get("/packages/zpm/latest/installer"),$system.OBJ.LoadStream(r.HttpResponse.Data,"c") \
   # install webterminal
   zpm "install webterminal" \
   # install demo
